@@ -369,6 +369,15 @@ function dateDiff(dateStr1, dateStr2) {
       j.addEventListener("click", () => showSection("section_j"));
    
   </script>
-
+  
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('./sw.js')
+        .then(reg => console.log('Service Worker enregistré !', reg))
+        .catch(err => console.warn('Erreur de Service Worker', err));
+    });
+  }
+</script>
 </body>
 </html>
