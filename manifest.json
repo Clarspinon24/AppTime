@@ -1,23 +1,23 @@
-{
-  "name": "About Damn Time",
-  "short_name": "ADT",
-  "description": "Calcule des durées et des écarts entre heures et dates",
-  "start_url": "./index.html",
-  "display": "standalone",
-  "background_color": "#f5f5f5",
-  "theme_color": "#bc95c7",
-  "icons": [
     {
-      "src": "./icons/logo.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "./icons/logo.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any maskable"
+    "name": "About Damn Time",
+    "short_name": "ADT",
+    "description": "Calcule des durées et des écarts entre heures et dates",
+    "start_url": "./index.html",
+    "display": "standalone",
+    "background_color": "#f5f5f5",
+    "theme_color": "#bc95c7",
+    "icons": [
+        {
+        "src": "./logo.png",
+        "sizes": "192x192",
+        "type": "image/png",
+        "purpose": "any maskable"
+        },
+        {
+        "src": "./logo.png",
+        "sizes": "512x512",
+        "type": "image/png",
+        "purpose": "any maskable"
+        }
+    ]
     }
-  ]
-}
