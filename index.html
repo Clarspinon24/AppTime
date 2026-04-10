@@ -6,14 +6,23 @@
   <title>AppTime</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: sans-serif; background: #f5f5f5; padding: 16px; }
+    body { font-family: sans-serif; background: #f5f5f5;  }
     h1 { font-size: 18px; margin-bottom: 16px; color: #111; }
     h2 { font-size: 14px; color: #555; margin-bottom: 10px; }
 
+    #title{
+      margin-top:20px;
+      display: flex;
+      justify-content: center;
+    }
+    .tabs{
+      margin-top: -5px;
+      display: flex;
+      justify-content: center;
+    }
     .section {
       background: white;
       border: 1px solid #ddd;
-      border-radius: 10px;
       padding: 16px;
       margin-bottom: 16px;
       display:none;
@@ -62,10 +71,14 @@
 </head>
 <body>
 
-  <h1>⏱ APP Time</h1>
+  
+  <menu class="tabs">
     <button id="add">Ajouter/soustraire</button>
     <button id="h">Heure d'écart</button>
     <button id="j">Jours et semaine d'écart</button>
+  </menu>
+
+<h1 id="title">⏱ APP Time</h1>
 
   <!-- 1. Ajouter / Soustraire -->
   <div class="section" id="section_add">
@@ -97,7 +110,7 @@
   </div>
 
   <!-- 2. Durée écoulée -->
-  <div class="section">
+  <div class="section" id="section_h">
     <h2>2. Durée écoulée entre deux heures</h2>
     <div class="row">
       <div>
@@ -125,7 +138,7 @@
   </div>
 
   <!-- 3. Écart entre deux dates -->
-  <div class="section">
+  <div class="section" id="section_j">
     <h2>3. Écart entre deux dates</h2>
     <div class="row">
       <div>
@@ -280,15 +293,22 @@
         : `soit ${r.totalDays} jour${r.totalDays > 1 ? 's' : ''} au total`;
       showResult('res-date', r.result, note);
     }
-    function tabs(){
+    
       const add = document.getElementById("add")
       const h = document.getElementById("h")
       const j = document.getElementById("j")
-      const section_add= document.getElementById("section_add")
-      add.addEventListener("click", () => {
-      section_add.classList.toggle("visible");
-    });
-    }
+
+      const allSection = document.querySelectorAll(".section");
+      function showSection(id){
+        allSection.forEach(sec=> sec.classList.remove("visible"));
+
+      const target = document.getElementById(id)
+      target.classList.add("visible");
+      }
+
+      add.addEventListener("click", () => showSection("section_add"));
+      h.addEventListener("click", () => showSection("section_h"));
+      j.addEventListener("click", () => showSection("section_j"));
    
   </script>
 
