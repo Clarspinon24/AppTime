@@ -1,23 +1,25 @@
     {
-    "name": "About Damn Time",
-    "short_name": "ADT",
-    "description": "Calcule des durées et des écarts entre heures et dates",
+    "id": "com.apptime.calculator",
+    "name": "AppTime",
+    "short_name": "AppTime",
+    "description": "Calculateur de temps et de dates",
     "start_url": "./index.html",
     "display": "standalone",
-    "background_color": "#f5f5f5",
+    "orientation": "portrait",
+    "background_color": "#ffffff",
     "theme_color": "#bc95c7",
     "icons": [
         {
-        "src": "./icons/logo.png",
+        "src": "icons/logo.png",
         "sizes": "192x192",
         "type": "image/png",
-        "purpose": "any maskable"
+        "purpose": "any"
         },
         {
-        "src": "./icons/logo.png",
+        "src": "icons/logo2.png",
         "sizes": "512x512",
         "type": "image/png",
-        "purpose": "any maskable"
+        "purpose": "any"
         }
     ]
     }
