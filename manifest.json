@@ -1,19 +1,23 @@
 {
-    "name":"AppTime",
-    "short_name" :"AppTime",
-    "start_url" : "index.html",
-    "display": "standalone",
-    "background_color":"#FFFFFF",
-    "theme_color": "#bc95c7",
-    "purpose": "any maskable",
-    "icons": [
-        {
-        "src": "/icons/logo.png", 
-        "sizes":"192x192",
-        "type" :"image/png"
-        }
-        
-        
-    ]
-
+  "name": "About Damn Time",
+  "short_name": "ADT",
+  "description": "Calcule des durées et des écarts entre heures et dates",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#f5f5f5",
+  "theme_color": "#bc95c7",
+  "icons": [
+    {
+      "src": "./icons/logo.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "./icons/logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
 }
