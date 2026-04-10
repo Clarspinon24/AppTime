@@ -7,7 +7,7 @@
     "theme_color":"#FF6600",
     "icons": [
         {
-        "src": "/icons/Logo_AppTime1.png", 
+        "src": "/icons/logo.png", 
         "sizes":"192x192",
         "type" :"image/png"
         }
