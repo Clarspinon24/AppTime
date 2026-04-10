@@ -3,6 +3,7 @@ const CACHE_NAME = 'apptime-v1';
 const ASSETS = [
   './',
   './index.html',
+  './manifest.json',
   './icons/logo.png' // Assure-toi que le chemin est correct
 ];
 
