@@ -1,25 +1,36 @@
 {
-    "id": "com.aboutdamntime.app",
-    "name": "About Damn Time",
-    "short_name": "ADT",
-    "description": "Calcule des durées et des écarts entre heures et dates",
-    "start_url": "./index.html",
-    "display": "standalone",
-    "orientation": "portrait",
-    "background_color": "#f5f5f5",
-    "theme_color": "#bc95c7",
-    "icons": [
-        {
-            "src": "icons/logo.png",
-            "sizes": "192x192",
-            "type": "image/png",
-            "purpose": "any"
-        },
-        {
-            "src": "icons/logo2.png",
-            "sizes": "512x512",
-            "type": "image/png",
-            "purpose": "any"
-        }
-    ]
+  "id": "com.aboutdamntime.app",
+  "name": "About Damn Time",
+  "short_name": "ADT",
+  "description": "Calcule des durées et des écarts entre heures et dates",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f5f5f5",
+  "theme_color": "#bc95c7",
+  "icons": [
+    {
+      "src": "icons/logo.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/logo2.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ],
+  "lang": "fr",
+  "dir": "ltr",
+  "scope": "./",
+  "display_override": [
+    "window-controls-overlay"
+  ],
+  "categories": [
+    "lifestyle",
+    "productivity",
+    "utilities"
+  ]
 }
