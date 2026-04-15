@@ -5,121 +5,17 @@
   <link rel="manifest" href="manifest.json">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>About Time !</title>
-  <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { 
-      font-family: sans-serif; 
-      background: #f5f5f5; 
-      display: flex;
-      flex-direction: column;
-      align-items: center; /* Centre horizontalement */
- 
-    }
-
-    h1 { font-size: 18px; margin-bottom: 16px; color: #111; }
-    h2 { font-size: 18px; color: #555; margin-bottom: 10px; }
-
-    .container {
-      width: 100%;
-      max-width: 600px; 
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-    #title{
-      margin-top:20px;
-      display: flex;
-      justify-content: center;
-    }
-    #title svg {
-      margin-left: 10px;
-    }
-    .tabs{
-      margin-top: -5px;
-      display: flex;
-      justify-content: center;
-    }
-    .section {
-    width: 100%; 
-    margin-top: 20px;
-    display: none; 
-    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-    }
-    .visible { 
-      display: flex; 
-      flex-direction: column;
-      align-items: center; 
-    }
-
-   .row {  
-      background: white;
-      border: 1px solid #ddd;
-      display: flex;
-      padding: 24px;
-      gap: 15px; 
-      margin-bottom: 20px; 
-      justify-content: center; 
-      flex-wrap: wrap; 
-    }
-
-    label { font-size: 12px; color: #777; display: block; margin-bottom: 3px; }
-
-    input[type="number"], input[type="datetime-local"] {
-      padding: 8px;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      font-size: 16px;
-      width: 70px;
-    }
-
-    input[type="date"] { width: 260px; height: 30px;}
-
-    .accueil{
-      justify-self: center;
-    }
-    .calculatrice{
-      height: 200px;
-      display: flex;
-      justify-self: center;
-    }
-    button {
-      padding: 10px 16px;
-      background: #bc95c7;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      font-size: 14px;
-      cursor: pointer;
-      margin-right: 6px;
-      margin-bottom: 10px;
-    }
-    button.danger { background: #66a2be; }
-
-    .description{
-      margin-top: 30px;
-    }
-
-    .result {
-      margin: 30px;
-      padding: 10px 14px;
-      background: #a5cab8;
-      border-radius: 8px;
-      font-size: 20px;
-      font-weight: 500;
-      color: #05201b;
-      display: none;
-    }
-    .result.show { display: block; }
-    .result small { display: block; font-size: 12px; color: #423a3a; font-weight: 400; margin-top: 2px; }
-  </style>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
   
   <menu class="tabs">
+    <button alt="Espace Travail" id="btn_travail">Travail</button>
     <button alt="fonction ajouter et soustraire" id="add">Ajouter/soustraire</button>
     <button alt="fonction heure d'écart" id="h">Heure d'écart</button>
     <button alt="fonction Jours et semaines d'écart" id="j">Jours et semaines d'écart</button>
+    
   </menu>
 
 <h1 id="title">  About Damn Time  
@@ -137,7 +33,7 @@
 </div>
 
   <!-- 1. Ajouter / Soustraire -->
-  <div class="section" id="section_add">
+  <section class="section" id="section_add">
     <h2>1. Ajouter / Soustraire une durée</h2>
      <div class="result" id="res-add">
       <span id="res-add-val"></span>
@@ -166,10 +62,10 @@
     </div>
    
    
-  </div>
+  </section>
 
   <!-- 2. Durée écoulée -->
-  <div class="section" id="section_h">
+  <section class="section" id="section_h">
      <h2>2. Durée écoulée entre deux heures</h2>
      <div class="result" id="res-elapsed">
       <span id="res-elapsed-val"></span>
@@ -196,10 +92,10 @@
     </div>
     <button onclick="doElapsed()">Calculer</button>
    
-  </div>
+  </section>
 
   <!-- 3. Écart entre deux dates -->
-  <div class="section" id="section_j">
+  <section class="section" id="section_j">
     <h2>3. Écart entre deux dates</h2>
       <div class="result" id="res-date">
       <span id="res-date-val"></span>
@@ -218,190 +114,49 @@
     </div>
     <button onclick="doDateDiff()">Calculer</button>
  
-  </div>
+  </section>
 
-  <script>
-    // ============================================================
-    //  UTILITAIRES
-    // ============================================================
 
-    function toSeconds(h, m, s) {
-      return (h * 3600) + (m * 60) + s;
-    }
+  <section class="section" id="section_travail">
 
-    function fromSeconds(totalSeconds) {
-      const negative = totalSeconds < 0;
-      const abs = Math.abs(totalSeconds);
-      const days = Math.floor(abs / 86400);
-      const h    = Math.floor((abs % 86400) / 3600);
-      const m    = Math.floor((abs % 3600) / 60);
-      const s    = abs % 60;
-      return { negative, days, h, m, s };
-    }
 
-    function pad(n) {
-      return String(n).padStart(2, '0');
-    }
-
-    function format(obj) {
-      const sign  = obj.negative ? '−' : '';
-      const parts = [];
-      if (obj.days > 0) parts.push(`${obj.days}j`);
-      if (obj.h > 0)    parts.push(`${pad(obj.h)}h`);
-      if (obj.m > 0)    parts.push(`${pad(obj.m)}min`);
-      parts.push(`${pad(obj.s)}s`);
-      return sign + parts.join(' ');
-    }
-
-    // ============================================================
-    //  1. AJOUTER / SOUSTRAIRE
-    // ============================================================
-
-    function addSubtractTime(startH, startM, startS, durH, durM, durS, op) {
-      const startSec = toSeconds(startH, startM, startS);
-      const durSec   = toSeconds(durH, durM, durS);
-      const totalSec = op === 'add' ? startSec + durSec : startSec - durSec;
-
-      const overflow = Math.floor(totalSec / 86400);
-      let inDay = totalSec % 86400;
-      if (inDay < 0) inDay += 86400;
-
-      const h = Math.floor(inDay / 3600);
-      const m = Math.floor((inDay % 3600) / 60);
-      const s = inDay % 60;
-
-      let overflowLabel = '';
-      if (overflow > 0) overflowLabel = `+${overflow} jour${overflow > 1 ? 's' : ''}`;
-      if (overflow < 0) overflowLabel = `${overflow} jour${Math.abs(overflow) > 1 ? 's' : ''}`;
-
-      return { result: `${pad(h)}h ${pad(m)}min ${pad(s)}s`, overflow, overflowLabel };
-    }
-
-    // ============================================================
-    //  2. DURÉE ÉCOULÉE
-    // ============================================================
-
-    function elapsedTime(h1, m1, s1, h2, m2, s2) {
-      let diff = toSeconds(h2, m2, s2) - toSeconds(h1, m1, s1);
-      const nextDay = diff < 0;
-      if (nextDay) diff += 86400;
-      const obj = fromSeconds(diff);
-      return { result: format(obj), totalMinutes: Math.floor(diff / 60), totalSeconds: diff, nextDay };
-    }
-
-  // ============================================================
-//  3. ÉCART ENTRE DEUX DATES (Version avec Mois)
-// ============================================================
-
-function dateDiff(dateStr1, dateStr2) {
-  let d1 = new Date(dateStr1);
-  let d2 = new Date(dateStr2);
-
-  if (isNaN(d1.getTime()) || isNaN(d2.getTime())) {
-    return { error: 'Dates invalides.', result: null, negative: false };
-  }
-
-  const negative = d2 < d1;
-  // Si c'est négatif, on inverse pour faire le calcul
-  if (negative) { [d1, d2] = [d2, d1]; }
-
-  let months = (d2.getFullYear() - d1.getFullYear()) * 12 + (d2.getMonth() - d1.getMonth());
-  let tempD1 = new Date(d1);
-  tempD1.setMonth(tempD1.getMonth() + months);
-
-  // Ajustement si le jour du mois de d2 est inférieur à d1
-  if (tempD1 > d2) {
-    months--;
-    tempD1 = new Date(d1);
-    tempD1.setMonth(tempD1.getMonth() + months);
-  }
-
-  const diffMs = d2 - tempD1;
-  const totalDaysRemaining = Math.floor(diffMs / 86400000);
-  const weeks = Math.floor(totalDaysRemaining / 7);
-  const days = totalDaysRemaining % 7;
-
-  // Calcul du total de jours absolu (pour la note)
-  const absoluteTotalDays = Math.floor(Math.abs(new Date(dateStr2) - new Date(dateStr1)) / 86400000);
-
-  const parts = [];
-  if (months > 0) parts.push(`${months} mois`);
-  if (weeks > 0) parts.push(`${weeks} semaine${weeks > 1 ? 's' : ''}`);
-  if (days > 0) parts.push(`${days} jour${days > 1 ? 's' : ''}`);
-  
-  if (parts.length === 0) parts.push('0 jour');
-
-  return {
-    result: (negative ? '−' : '') + parts.join(' '),
-    totalDays: absoluteTotalDays,
-    negative,
-    error: null,
-  };
-}
-
-    // ============================================================
-    //  UI
-    // ============================================================
-
-    const now   = new Date();
-    const later = new Date(now.getTime() + 3 * 86400000);
-    const fmt   = d => d.toISOString().slice(0, 10);
-    document.getElementById('dt1').value = fmt(now);
-    document.getElementById('dt2').value = fmt(later);
-
-    function gv(id) { return parseInt(document.getElementById(id).value) || 0; }
-
-    function showResult(id, val, note) {
-      document.getElementById(id).classList.add('show');
-      document.getElementById(id + '-val').textContent  = val;
-      document.getElementById(id + '-note').textContent = note || '';
-    }
-
-    function doAdd(op) {
-      const r = addSubtractTime(gv('s-h'), gv('s-m'), gv('s-s'), gv('d-h'), gv('d-m'), gv('d-s'), op);
-      showResult('res-add', r.result, r.overflowLabel);
-    }
-
-    function doElapsed() {
-      const r = elapsedTime(gv('e1-h'), gv('e1-m'), gv('e1-s'), gv('e2-h'), gv('e2-m'), gv('e2-s'));
-      showResult('res-elapsed', r.result, r.nextDay ? '(passage minuit — fin le lendemain)' : '');
-    }
-
-    function doDateDiff() {
-      const r = dateDiff(document.getElementById('dt1').value, document.getElementById('dt2').value);
-      if (r.error) { alert(r.error); return; }
-      const note = r.negative
-        ? 'La date de fin est avant la date de début'
-        : `soit ${r.totalDays} jour${r.totalDays > 1 ? 's' : ''} au total`;
-      showResult('res-date', r.result, note);
-    }
+  <div class="card" style="border: 1px solid #ccc; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+    <h3>🕒 Mes 35h</h3>
+    <div id="status-badge" style="font-weight: bold; margin-bottom: 10px;">Prêt pour le badgeage</div>
     
-      const add = document.getElementById("add")
-      const h = document.getElementById("h")
-      const j = document.getElementById("j")
+    <div style="display:flex; gap:10px">
+        <button id="btn-matin" onclick="doBadge('Matin')" style="flex:1">☀️</button>
+        <button id="btn-soir" onclick="doBadge('Soir')" style="flex:1" class="danger">🌙</button>
+    </div>
+    
+    <div style="text-align: right; margin-top: 10px;">
+        <button onclick="resetPointage()" style="background: none; border: none; color: gray; font-size: 0.7em; text-decoration: underline; cursor: pointer;">
+            Modifier / Erreur de saisie
+        </button>
+    </div>
 
-      const allSection = document.querySelectorAll(".section");
-    function showSection(id) {
-      // Cache l'accueil dès qu'on clique sur un onglet
-      document.getElementById('accueil').style.display = 'none';
+    <p id="total-semaine" style="font-size: 0.9em; margin-top: 10px;">Total semaine : 0h / 35h</p>
+</div>
 
-      allSection.forEach(sec => sec.classList.remove("visible"));
-      const target = document.getElementById(id);
-      target.classList.add("visible");
-    }
+    <div class="card">
+    <h3>🍴 Solde Carte Resto</h3>
+    
+    <div style="text-align: center; margin: 20px 0;">
+        <span id="affichage-solde" style="font-size: 2.5em; font-weight: bold; color: #2c3e50;">0.00</span>
+        <span style="font-size: 1.5em;">€</span>
+    </div>
 
-      add.addEventListener("click", () => showSection("section_add"));
-      h.addEventListener("click", () => showSection("section_h"));
-      j.addEventListener("click", () => showSection("section_j"));
-     
+    <div class="row">
+        <input type="number" id="solde-input" step="0.01" inputmode="decimal" placeholder="Nouveau solde">
+        <button onclick="saveSolde()">Mettre à jour</button>
+    </div>
+</div>
 
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-      navigator.serviceWorker.register('./sw.js')
-        .then(reg => console.log('Service Worker enregistré !', reg))
-        .catch(err => console.warn('Erreur de Service Worker', err));
-    });
-  }
-</script>
+
+</section>
+
+  <script src="utilitaire.js"></script>
+  <script src="calcul.js"></script>
+  <script src="ui.js"></script>
 </body>
 </html>
