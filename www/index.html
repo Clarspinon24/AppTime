@@ -190,8 +190,9 @@
         </div>
 
         <div class="row">
-            <input type="number" id="solde-input" step="0.01" inputmode="decimal" placeholder="Nouveau solde">
-            <button onclick="saveSolde()">Mettre à jour</button>
+            <input type="number" id="solde-input" step="0.01" inputmode="decimal" placeholder="Nouveau solde" style="display:none">
+            <button id="submit" onclick="toggleSoldeInput()">Modifier</button>
+            <button id="cancel-btn" onclick="cancelSolde()" style="display:none">Annuler</button>
         </div>
     </div>
 </section>

@@ -113,21 +113,62 @@ function rafraichirAffichageResto() {
     document.getElementById('solde-input').value = soldeStocke;
 }
 
+
+
 // Appeler au chargement de la page
 window.addEventListener('load', rafraichirAffichageResto);
 
+// Variable d'état pour le toggle du solde
+let isInputVisible = false;
+
+function toggleSoldeInput() {
+    const inputField = document.getElementById('solde-input');
+    const updateBtn = document.getElementById('submit');
+    const cancelBtn = document.getElementById('cancel-btn');
+
+    if (isInputVisible) {
+        // État actuel : input visible → on veut sauvegarder
+        saveSolde();
+    } else {
+        // État actuel : input caché → on veut l'afficher
+        inputField.style.display = 'block';
+        updateBtn.textContent = 'Valider';
+        cancelBtn.style.display = 'inline-block';
+        isInputVisible = true;
+    }
+}
+
 function saveSolde() {
     const nouveauSolde = document.getElementById('solde-input').value;
-    if(nouveauSolde === "") return;
+    const inputField = document.getElementById('solde-input');
+    const updateBtn = document.getElementById('submit');
+    const cancelBtn = document.getElementById('cancel-btn');
 
-    // On enregistre dans le téléphone
+    if (nouveauSolde === '') return;
+
     localStorage.setItem('monSoldeResto', parseFloat(nouveauSolde).toFixed(2));
-    
-    // On met à jour l'affichage immédiatement
     rafraichirAffichageResto();
     
-    alert("Solde mis à jour !");
-}// ============================================================
+    // Fermer l'input
+    inputField.style.display = 'none';
+    updateBtn.textContent = 'Modifier';
+    cancelBtn.style.display = 'none';
+    isInputVisible = false;
+}
+
+function cancelSolde() {
+    const inputField = document.getElementById('solde-input');
+    const updateBtn = document.getElementById('submit');
+    const cancelBtn = document.getElementById('cancel-btn');
+
+    // Fermer l'input sans sauvegarder
+    inputField.style.display = 'none';
+    updateBtn.textContent = 'Modifier';
+    cancelBtn.style.display = 'none';
+    isInputVisible = false;
+}
+
+// ============================================================
 //  5. GESTION DU POINTAGE (35h)
 // ============================================================
 
